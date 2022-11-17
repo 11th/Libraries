@@ -1,21 +1,37 @@
 package com.eleventh;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Employee {
+    private static final String ALPHABET = "[А-Яа-яЁё]+";
+
     private static int count;
 
     private final int id;
+    private final String firstName;
+    private final String middleName;
+    private final String lastName;
     private final String fullName;
     private String department;
     private double salary;
 
-    public Employee(String fullName, String department, double salary) {
+    public Employee(String lastName, String firstName, String middleNAme, String department, double salary) throws IllegalArgumentException {
+        if (!StringUtils.isAlpha(lastName) || !StringUtils.isAlpha(firstName) || !StringUtils.isAlpha(middleNAme)) {
+            throw new IllegalArgumentException("400 - Bad request");
+        }
+        if ( !(lastName.matches(ALPHABET) && middleNAme.matches(ALPHABET) && firstName.matches(ALPHABET))) {
+            throw new IllegalArgumentException("400 - Bad request");
+        }
         this.id = count++;
-        this.fullName = fullName;
+        this.firstName = StringUtils.capitalize(firstName.toLowerCase().trim());
+        this.middleName = StringUtils.capitalize(middleNAme.toLowerCase().trim());
+        this.lastName = StringUtils.capitalize(lastName.toLowerCase().trim());
+        this.fullName = this.lastName + " " + this.firstName + " " + this.middleName;
         this.department = department;
         this.salary = salary;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
