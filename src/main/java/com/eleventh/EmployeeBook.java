@@ -7,10 +7,10 @@ public class EmployeeBook {
         employees = new Employee[employeeCount];
     }
 
-    public void create(String fullName, String department, double salary) {
+    public void create(String lastName, String firstName, String middleNAme, String department, double salary) throws IllegalArgumentException {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] == null) {
-                employees[i] = new Employee(fullName, department, salary);
+                employees[i] = new Employee(lastName, firstName, middleNAme, department, salary);
                 return;
             }
         }
